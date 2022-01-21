@@ -15,14 +15,28 @@ function enqueue_styles_child_theme() {
 }
 
 function shortcode_chess_board($atts){
-  
-  return '<div id="ChessBoard" style="width:500px"></div>';
-
-  
+	$width = isset( $atts['width'] ) ? $atts['width'].'px' : '500px';
+	ob_start();
+  	?>
+	<style>
+		div.white-1e1d7{
+			background-color: #f0d9b5;
+			color: #b58863;
+		}
+		div.black-3c85d{
+			background-color: red;
+			color: #f0d9b5;
+		}
+  	</style>
+	  <div id="ChessBoard" width="<?=$width;?>"></div>
+  <?php
+  $html = ob_get_contents();
+  ob_clean();
+  return $html;
 }
 
 function chess_board(){
-  $dominio = "http://".$_SERVER['SERVER_NAME'];
+  $dominio = "https://".$_SERVER['SERVER_NAME'];
   $pieces = $dominio."/wp-content/themes/chess-theme-with-elementor/resources/img/{piece}.png";
 	?>
   <script>
