@@ -39,9 +39,9 @@ function chess_board(){
   $dominio = "https://".$_SERVER['SERVER_NAME'];
   $pieces = $dominio."/wp-content/themes/chess-theme-with-elementor/resources/img/{piece}.png";
 	?>
-  <script>
-    localStorage.setItem('pieceTheme',"<?=$pieces?>");
-  </script>
+  	<script>
+    	localStorage.setItem('pieceTheme',"<?=$pieces?>");
+  	</script>
 	<link rel="stylesheet" href="<?=$dominio?>/wp-content/themes/chess-theme-with-elementor/resources/css/chessboard-0.3.0.min.css"/>
 	<script src="<?=$dominio?>/wp-content/themes/chess-theme-with-elementor/resources/js/jquery-1.10.1.min.js"></script>
 	<script src="<?=$dominio?>/wp-content/themes/chess-theme-with-elementor/resources/js/chess.min.js"></script>
@@ -54,5 +54,5 @@ function chess_board(){
 add_action( 'wp_enqueue_scripts', 'enqueue_styles_child_theme' );
 
 
-add_action('wp_head', 'chess_board');
-add_shortcode('chessboard', 'shortcode_chess_board');
+add_action('wp_head', array('ChessTheme','chess_board') );
+add_shortcode('chessboard', array('ChessTheme', 'shortcode_chess_board') );
