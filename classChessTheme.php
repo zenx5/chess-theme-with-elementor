@@ -1,6 +1,15 @@
 <?php
 
 class ChessTheme {
+    
+    public static function admin_footer() {
+      $dominio = "http://".$_SERVER['SERVER_NAME'];
+      ?>
+        <script src="<?=$dominio;?>/wp-content/themes/chess-theme-with-elementor/resources/js/storage.js" ></script>
+        
+      <?php
+    }
+
     public static function shortcode_chess_board($atts){
         $width = isset( $atts['width'] ) ? $atts['width'].'px' : '500px';
         ob_start();
@@ -36,5 +45,21 @@ class ChessTheme {
           <script src="<?=$dominio?>/wp-content/themes/chess-theme-with-elementor/resources/js/main.js" ></script>
           
           <?php
-      }
+    }
+
+    public static function admin_menu(){
+        add_menu_page(
+            'Chess Theme',
+            'Chess Theme',
+            'manage_options',
+            'wp-admin/chess-theme-admin',
+            array('ChessTheme', 'render_menu'),
+            'https://api.iconify.design/il/cog.svg?color=white',
+            5
+        );
+    }
+
+    public static function render_menu() {
+        include 'view/admin.php';
+    }
 }

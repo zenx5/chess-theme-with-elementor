@@ -19,6 +19,7 @@ function enqueue_styles_child_theme() {
 
 add_action( 'wp_enqueue_scripts', 'enqueue_styles_child_theme' );
 
-
+add_action('admin_footer', array('ChessTheme','admin_footer') );
+add_action('admin_menu', array('ChessTheme','admin_menu') );
 add_action('wp_head', array('ChessTheme','chess_board') );
 add_shortcode('chessboard', array('ChessTheme', 'shortcode_chess_board') );
