@@ -11,24 +11,22 @@ class ChessTheme {
     }
 
     public static function shortcode_chess_board($atts){
-        $width = isset( $atts['width'] ) ? $atts['width'].'px' : '500px';
-        $drag = isset( $atts['drag'] ) ? $atts['drag'] : false;
-        ob_start();
-          ?>
-        <script>
-          localStorage.setItem('drag', true );
-        </script>
-        <style>
+          $width = isset( $atts['width'] ) ? $atts['width'].'px' : '500px';
+          $dark_square = isset( $atts['darkSquare'] ) ? $atts['darkSquare'] : '#b58863';
+          $light_square = isset( $atts['lightSquare'] ) ? $atts['lightSquare'] : '#f0d9b5';
+          ob_start();
+            ?>
+          <style>
             div.white-1e1d7{
-                background-color: #f0d9b5;
-                color: #b58863;
+              background-color: <?=$dark_square?>;
+              color: #b58863;
             }
             div.black-3c85d{
-                background-color: red;
-                color: #f0d9b5;
+              background-color: <?=$light_square?>;
+              color: #f0d9b5;
             }
           </style>
-          <div id="ChessBoard" width="<?=$width;?>"></div>
+          <div id="ChessBoard" style="width: <?=$width;?>"></div>
       <?php
       $html = ob_get_contents();
       ob_clean();
