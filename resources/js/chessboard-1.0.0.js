@@ -1739,6 +1739,11 @@
     function addEvents () {
       // prevent "image drag"
       $('body').on('mousedown mousemove', '.' + CSS.piece, stopDefault)
+      //$board click pieces
+      console.log($board)
+      $board.on('click', '.' + CSS.square, ev=>{
+          console.log(ev)
+      })
 
       // mouse drag pieces
       $board.on('mousedown', '.' + CSS.square, mousedownSquare)

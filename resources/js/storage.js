@@ -22,8 +22,12 @@ class StorageChess {
 
     }
 
-    save(   ){
-        
+    save( id, move  ){
+        let data = new FormData();
+        data.append('action', 'ajax_move');
+        data.append('id_board', id);
+        data.append('move', move);
+        axios.post()
     }
 
 

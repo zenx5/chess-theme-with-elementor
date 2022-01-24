@@ -55,7 +55,7 @@ function main(){
                 })
             });
             let config = {
-                draggable: true,
+                draggable: true,//localStorage.getItem('drag') ?? false,
                 position: 'start',
                 onDragStart: this.onDragStart.bind( this ),
                 onDrop: this.onDrop.bind( this ),
