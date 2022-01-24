@@ -17,7 +17,7 @@ class ChessTheme {
               color: #f0d9b5;
             }
           </style>
-          <div id="ChessBoard" width="<?=$width;?>"></div>
+          <div id="ChessBoard" style="width: <?=$width;?>"></div>
       <?php
       $html = ob_get_contents();
       ob_clean();
