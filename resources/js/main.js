@@ -52,19 +52,17 @@ function main(){
             let config = {
                 draggable: true,//localStorage.getItem('drag') ?? false,
                 position: 'start',
-                onDragStart: this.onDragStart.bind( this ),
-                onDrop: this.onDrop.bind( this ),
+                // onDragStart: this.onDragStart.bind( this ),
+                // onDrop: this.onDrop.bind( this ),
                 onSnapEnd: this.onSnapEnd.bind( this ),
-                onMouseoverSquare: this.onMouseoverSquare.bind( this ),
-                onMouseoutSquare: this.onMouseoutSquare.bind( this ),
                 pieceTheme: localStorage.getItem('pieceTheme'),
-                onClick: this.onClick.bind( this )
+                onClick: this.onClick.bind( this ),
+                sparePieces: true
             }
             board = ChessBoard('ChessBoard', config);
         }
 
         onClick( square, piece ) {
-            console.log(this.selectedSquares)
             let index = this.selectedSquares.filter( element => {
                 return element.square == square;
             })[0];
@@ -118,31 +116,6 @@ function main(){
             if (move === null) return 'snapback'
 
             updateStatus()
-        }
-
-        onMouseoverSquare( square, piece ) {
-            this.squareMouse = square;
-            // get list of possible moves for this square
-            let moves = game.moves({
-                square: square,
-                verbose: true
-            })
-
-            // // exit if there are no moves available for this square
-            // if (moves.length === 0) return
-
-            // // highlight the square they moused over
-            // greySquare(square)
-
-            // // highlight the possible squares for this piece
-            // for (var i = 0; i < moves.length; i++) {
-            //   greySquare(moves[i].to)
-            // }
-        }
-
-        onMouseoutSquare( square, piece) {
-            this.squareMouse = null;
-            //removeGreySquares()
         }
 
         onSnapEnd( ) {
