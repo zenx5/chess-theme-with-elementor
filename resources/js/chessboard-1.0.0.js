@@ -1590,7 +1590,7 @@
 
     function mousedownSquare (evt) {
       var square = $(this).attr('data-square')
-      config.onClick && config.onClick( square );
+      config.onClick && config.onClick( square, currentPosition[ square ] );
 
       // do nothing if we're not draggable
       if (!config.draggable) return

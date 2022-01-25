@@ -56,8 +56,8 @@ function main(){
             board = ChessBoard('ChessBoard', config);
         }
 
-        onClick( ) {
-            console.log("mois es un crack")
+        onClick( square, piece ) {
+            console.log( square, piece )
         }
 
         onDragStart( source, piece, position, orientation) {
