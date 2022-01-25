@@ -77,6 +77,7 @@ function main(){
             this.pieceMoves = moves.map( move => {
                 return move.to
             })
+            axios.post()
 
 
             // do not pick up pieces if the game is over
