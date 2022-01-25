@@ -1,6 +1,6 @@
-"use strict";
+//"use strict";
 
-class BoardData{
+/*class BoardData{
     constructor(width, color){
         this.width = width;
         this.color = color;
@@ -13,7 +13,7 @@ class BoardData{
             fen: this.fen
         }
     }
-}
+}*/
 
 
 class StorageChess {
@@ -23,12 +23,25 @@ class StorageChess {
     }
 
     save( id, move  ){
-        let data = new FormData();
-        data.append('action', 'ajax_move');
-        data.append('id_board', id);
-        data.append('move', move);
-        axios.post()
+        console.log(id, move)
+        let rData = new FormData();
+        rData.append('action', 'chess_storage');
+        rData.append('exec', 'save');
+        rData.append('id_board', id);
+        rData.append('move', move);
+        let xhr = new XMLHttpRequest();
+        xhr.open('post', ajax_object.ajax_url)
+        xhr.addEventListener( 'load', function(ev){
+            const { response } = ev.target;
+            console.log(response)
+        })
+        xhr.send(rData);
+        
     }
 
 
 }
+
+let storageChess = new StorageChess();
+
+storageChess.save('x55', 'e2-e4' );
