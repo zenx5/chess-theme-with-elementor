@@ -41,6 +41,13 @@ function main(){
     class Board {
         constructor( ) {
             this.squareMouse = null;
+            /**
+             * Un array que almacena un objeto con las casillas seleccionadas y la ficha ubicada en la casilla en caso de haber
+             * {
+             *  square: casilla seleccionada,
+             *  piece: pieza ubicada en la casilla seleccionada. si no existe es null
+             * }
+             */
             this.selectedSquares = [];
             let config = {
                 draggable: true,//localStorage.getItem('drag') ?? false,
@@ -57,7 +64,24 @@ function main(){
         }
 
         onClick( square, piece ) {
-            console.log( square, piece )
+            console.log(this.selectedSquares)
+            let index = this.selectedSquares.filter( element => {
+                return element.square == square;
+            })[0];
+            if ( piece == undefined ) piece = null;
+            if ( index != null ) {
+                let index = this.selectedSquares.indexOf( square );
+                this.selectedSquares.splice( index, 1 );
+                console.log('.square-' + square, "unclick")
+                $('.square-' + square)
+                    .removeClass('highlight2-9c5d2')
+            }
+            else {
+                this.selectedSquares.push( {square, piece} );
+                console.log('.square-' + square, "click")
+                $('.square-' + square)
+                    .addClass('highlight2-9c5d2')
+            }
         }
 
         onDragStart( source, piece, position, orientation) {
