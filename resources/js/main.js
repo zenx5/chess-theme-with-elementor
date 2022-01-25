@@ -41,19 +41,7 @@ function main(){
     class Board {
         constructor( ) {
             this.squareMouse = null;
-            this.piece = null;
-            this.pieceMoves = []
-            let squares = document.querySelectorAll('#ChessBoard .square-55d63');
-            squares.forEach( element => {
-                element.addEventListener( "mousedown", event => {
-                    this.lastSquareClicked = element;
-                    let pieceMoves = this.pieceMoves;
-                    console.log(pieceMoves, elements)
-                    if( pieceMoves.includes( element ) ) {
-
-                    }
-                })
-            });
+            this.selectedSquares = [];
             let config = {
                 draggable: true,//localStorage.getItem('drag') ?? false,
                 position: 'start',
@@ -62,9 +50,14 @@ function main(){
                 onSnapEnd: this.onSnapEnd.bind( this ),
                 onMouseoverSquare: this.onMouseoverSquare.bind( this ),
                 onMouseoutSquare: this.onMouseoutSquare.bind( this ),
-                pieceTheme: localStorage.getItem('pieceTheme')
+                pieceTheme: localStorage.getItem('pieceTheme'),
+                onClick: this.onClick.bind( this )
             }
             board = ChessBoard('ChessBoard', config);
+        }
+
+        onClick( ) {
+            console.log("mois es un crack")
         }
 
         onDragStart( source, piece, position, orientation) {

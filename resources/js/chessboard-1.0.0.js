@@ -1589,11 +1589,13 @@
     }
 
     function mousedownSquare (evt) {
+      var square = $(this).attr('data-square')
+      config.onClick && config.onClick( square );
+
       // do nothing if we're not draggable
       if (!config.draggable) return
 
       // do nothing if there is no piece on this square
-      var square = $(this).attr('data-square')
       if (!validSquare(square)) return
       if (!currentPosition.hasOwnProperty(square)) return
 
