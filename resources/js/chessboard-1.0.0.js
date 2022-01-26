@@ -5,6 +5,16 @@
 // Released under the MIT license
 // https://github.com/oakmac/chessboardjs/blob/master/LICENSE.md
 
+/*
+  MODIFICACION 1: 
+  AGREGADO config.onClick && config.onClick( square, currentPosition[ square ] ); 
+*/
+/*
+  MODIFICACION 2:
+    CAMBIADO 
+      .removeClass(CSS.highlight1 + ' ' + CSS.highlight2) por
+      .removeClass(CSS.highlight1)
+*/
 // start anonymous scope
 ;(function () {
   'use strict'
@@ -1182,7 +1192,13 @@
     function removeSquareHighlights () {
       $board
         .find('.' + CSS.square)
-        .removeClass(CSS.highlight1 + ' ' + CSS.highlight2)
+        /*
+          MODIFICACION 2:
+            cambiado 
+              .removeClass(CSS.highlight1 + ' ' + CSS.highlight2) por
+              .removeClass(CSS.highlight1)
+        */
+        .removeClass(CSS.highlight1)
     }
 
     function snapbackDraggedPiece () {
@@ -1589,11 +1605,17 @@
     }
 
     function mousedownSquare (evt) {
+      /*
+        MODIFICACION 1: 
+        AGREGADO config.onClick && config.onClick( square, currentPosition[ square ] ); 
+      */
+      var square = $(this).attr('data-square')
+      config.onClick && config.onClick( square, currentPosition[ square ] );
+
       // do nothing if we're not draggable
       if (!config.draggable) return
 
       // do nothing if there is no piece on this square
-      var square = $(this).attr('data-square')
       if (!validSquare(square)) return
       if (!currentPosition.hasOwnProperty(square)) return
 

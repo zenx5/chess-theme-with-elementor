@@ -41,30 +41,45 @@ function main(){
     class Board {
         constructor( ) {
             this.squareMouse = null;
-            this.piece = null;
-            this.pieceMoves = []
-            let squares = document.querySelectorAll('#ChessBoard .square-55d63');
-            squares.forEach( element => {
-                element.addEventListener( "mousedown", event => {
-                    this.lastSquareClicked = element;
-                    let pieceMoves = this.pieceMoves;
-                    console.log(pieceMoves, elements)
-                    if( pieceMoves.includes( element ) ) {
-
-                    }
-                })
-            });
+            /**
+             * Un array que almacena un objeto con las casillas seleccionadas y la ficha ubicada en la casilla en caso de haber
+             * {
+             *  square: casilla seleccionada,
+             *  piece: pieza ubicada en la casilla seleccionada. si no existe es null
+             * }
+             */
+            this.selectedSquares = [];
             let config = {
                 draggable: true,//localStorage.getItem('drag') ?? false,
                 position: 'start',
-                onDragStart: this.onDragStart.bind( this ),
-                onDrop: this.onDrop.bind( this ),
+                // onDragStart: this.onDragStart.bind( this ),
+                // onDrop: this.onDrop.bind( this ),
                 onSnapEnd: this.onSnapEnd.bind( this ),
-                onMouseoverSquare: this.onMouseoverSquare.bind( this ),
-                onMouseoutSquare: this.onMouseoutSquare.bind( this ),
-                pieceTheme: localStorage.getItem('pieceTheme')
+                pieceTheme: localStorage.getItem('pieceTheme'),
+                onClick: this.onClick.bind( this ),
+                sparePieces: true
             }
             board = ChessBoard('ChessBoard', config);
+        }
+
+        onClick( square, piece ) {
+            let index = this.selectedSquares.filter( element => {
+                return element.square == square;
+            })[0];
+            if ( piece == undefined ) piece = null;
+            if ( index != null ) {
+                let index = this.selectedSquares.indexOf( square );
+                this.selectedSquares.splice( index, 1 );
+                console.log('.square-' + square, "unclick")
+                $('.square-' + square)
+                    .removeClass('highlight2-9c5d2')
+            }
+            else {
+                this.selectedSquares.push( {square, piece} );
+                console.log('.square-' + square, "click")
+                $('.square-' + square)
+                    .addClass('highlight2-9c5d2')
+            }
         }
 
         onDragStart( source, piece, position, orientation) {
@@ -102,31 +117,6 @@ function main(){
             if (move === null) return 'snapback'
 
             updateStatus()
-        }
-
-        onMouseoverSquare( square, piece ) {
-            this.squareMouse = square;
-            // get list of possible moves for this square
-            let moves = game.moves({
-                square: square,
-                verbose: true
-            })
-
-            // // exit if there are no moves available for this square
-            // if (moves.length === 0) return
-
-            // // highlight the square they moused over
-            // greySquare(square)
-
-            // // highlight the possible squares for this piece
-            // for (var i = 0; i < moves.length; i++) {
-            //   greySquare(moves[i].to)
-            // }
-        }
-
-        onMouseoutSquare( square, piece) {
-            this.squareMouse = null;
-            //removeGreySquares()
         }
 
         onSnapEnd( ) {
