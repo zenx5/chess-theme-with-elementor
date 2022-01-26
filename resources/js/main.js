@@ -54,10 +54,11 @@ function main(){
                 position: 'start',
                 // onDragStart: this.onDragStart.bind( this ),
                 // onDrop: this.onDrop.bind( this ),
-                onSnapEnd: this.onSnapEnd.bind( this ),
+                // onSnapEnd: this.onSnapEnd.bind( this ),
                 pieceTheme: localStorage.getItem('pieceTheme'),
                 onClick: this.onClick.bind( this ),
-                sparePieces: true
+                sparePieces: true,
+                dropOffBoard: "trash"
             }
             board = ChessBoard('ChessBoard', config);
         }
@@ -70,13 +71,11 @@ function main(){
             if ( index != null ) {
                 let index = this.selectedSquares.indexOf( square );
                 this.selectedSquares.splice( index, 1 );
-                console.log('.square-' + square, "unclick")
                 $('.square-' + square)
                     .removeClass('highlight2-9c5d2')
             }
             else {
                 this.selectedSquares.push( {square, piece} );
-                console.log('.square-' + square, "click")
                 $('.square-' + square)
                     .addClass('highlight2-9c5d2')
             }
