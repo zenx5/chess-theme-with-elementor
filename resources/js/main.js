@@ -60,10 +60,18 @@ function main(){
                 sparePieces: true,
                 dropOffBoard: "trash"
             }
-            board = ChessBoard('ChessBoard', config);
+            let ids = JSON.parse( localStorage.getItem('chess-board-ids') );
+            console.log(ids)
+            let boards = []
+            ids.forEach( id => {
+                if( document.querySelector('#'+id) ){
+                    boards.push( ChessBoard(id, config) );
+                }
+            })
+            
         }
 
-        onClick( square, piece ) {
+        onClick( id, square, piece ) {
             let index = this.selectedSquares.filter( element => {
                 return element.square == square;
             })[0];
@@ -71,12 +79,12 @@ function main(){
             if ( index != null ) {
                 let index = this.selectedSquares.indexOf( square );
                 this.selectedSquares.splice( index, 1 );
-                $('.square-' + square)
+                $('#'+id+' .square-' + square)
                     .removeClass('highlight2-9c5d2')
             }
             else {
                 this.selectedSquares.push( {square, piece} );
-                $('.square-' + square)
+                $('#'+id+'.square-' + square)
                     .addClass('highlight2-9c5d2')
             }
         }

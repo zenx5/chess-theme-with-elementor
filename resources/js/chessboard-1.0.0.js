@@ -7,7 +7,9 @@
 
 /*
   MODIFICACION 1: 
-  AGREGADO config.onClick && config.onClick( square, currentPosition[ square ] ); 
+  AGREGADO config.onClick && config.onClick( square, currentPosition[ square ] );
+  AGREGADO let id = this.parentElement.parentElement.parentElement.parentElement.id;
+  AGREGADO primer parametro (id) del evento onClick
 */
 /*
   MODIFICACION 2:
@@ -1608,9 +1610,12 @@
       /*
         MODIFICACION 1: 
         AGREGADO config.onClick && config.onClick( square, currentPosition[ square ] ); 
+        AGREGADO let id = this.parentElement.parentElement.parentElement.parentElement.id;
+        AGREGADO primer parametro (id) del evento onClick
       */
+      let id = this.parentElement.parentElement.parentElement.parentElement.id;
       var square = $(this).attr('data-square')
-      config.onClick && config.onClick( square, currentPosition[ square ] );
+      config.onClick && config.onClick( id, square, currentPosition[ square ] );
 
       // do nothing if we're not draggable
       if (!config.draggable) return

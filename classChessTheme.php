@@ -45,27 +45,43 @@ class ChessTheme {
       $dominio = self::get_dominio();
       ?>
         <script src="<?=$dominio;?>/wp-content/themes/chess-theme-with-elementor/resources/js/storage.js" ></script>
-        
       <?php
     }
 
     public static function shortcode_chess_board($atts){
-          $width = isset( $atts['width'] ) ? $atts['width'].'px' : '500px';
-          $dark_square = isset( $atts['darkSquare'] ) ? $atts['darkSquare'] : '#f0d9b5';
-          $light_square = isset( $atts['lightSquare'] ) ? $atts['lightSquare'] : '#b58863';
-          ob_start();
-            ?>
+      if( ! isset( $atts['id'] ) ){
+        return;
+      }
+      $id = $atts['id'];
+      $width = isset( $atts['width'] ) ? $atts['width'].'px' : '500px';
+      $dark_square = isset( $atts['darkSquare'] ) ? $atts['darkSquare'] : '#f0d9b5';
+      $light_square = isset( $atts['lightSquare'] ) ? $atts['lightSquare'] : '#b58863';
+      ob_start();
+        ?>
+          <script>
+            (function(){
+              let id = "<?=$id?>";
+              let ids = [];
+              if( localStorage.getItem('chess-board-ids') ){
+                ids = JSON.parse( localStorage.getItem('chess-board-ids') );
+              }
+              if( !ids.find( i => i == id ) ) {
+                ids.push(id);
+              }
+              localStorage.setItem('chess-board-ids', JSON.stringify( ids ) );
+            })()
+          </script>
           <style>
-            div.white-1e1d7{
+            <?='#'.$id;?> div.white-1e1d7{
               background-color: <?=$dark_square?>;
               color: #b58863;
             }
-            div.black-3c85d{
+            <?='#'.$id;?> div.black-3c85d{
               background-color: <?=$light_square?>;
               color: #f0d9b5;
             }
           </style>
-          <div id="ChessBoard" style="width: <?=$width;?>"></div>
+          <div id="<?=$id?>" style="width: <?=$width;?>"></div>
       <?php
       $html = ob_get_contents();
       ob_clean();
