@@ -69,6 +69,13 @@ class ChessTheme {
                 ids.push(id);
               }
               localStorage.setItem('chess-board-ids', JSON.stringify( ids ) );
+              /*
+                {
+                  id: string,
+                  fen: string,
+                  moves: string
+                }
+              */
             })()
           </script>
           <style>
