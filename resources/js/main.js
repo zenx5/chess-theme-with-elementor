@@ -52,9 +52,9 @@ function main(){
             let config = {
                 draggable: true,//localStorage.getItem('drag') ?? false,
                 position: 'start',
-                // onDragStart: this.onDragStart.bind( this ),
-                // onDrop: this.onDrop.bind( this ),
-                // onSnapEnd: this.onSnapEnd.bind( this ),
+                //onDragStart: this.onDragStart.bind( this ),
+                onDrop: this.onDrop.bind( this ),
+                //onSnapEnd: this.onSnapEnd.bind( this ),
                 pieceTheme: localStorage.getItem('pieceTheme'),
                 onClick: this.onClick.bind( this ),
                 sparePieces: true,
@@ -72,6 +72,7 @@ function main(){
         }
 
         onClick( id, square, piece ) {
+            
             let index = this.selectedSquares.filter( element => {
                 return element.square == square;
             })[0];
@@ -92,6 +93,7 @@ function main(){
         }
 
         onDragStart( source, piece, position, orientation) {
+            console.log('onDragStart')
             this.piece = piece;
             let square = this.squareMouse;
             let moves = game.moves({
@@ -114,7 +116,9 @@ function main(){
             }
         }
 
-        onDrop( source, target ) {
+        onDrop( source, target, piece ) {
+            console.log('onDrop')
+            console.log( source, target, piece )
             // see if the move is legal
             var move = game.move({
                 from: source,
@@ -123,12 +127,16 @@ function main(){
             })
 
             // illegal move
+            
             if (move === null) return 'snapback'
+
+            
 
             updateStatus()
         }
 
         onSnapEnd( ) {
+            console.log('onSnapEnd')
             board.position(game.fen())
         }
     }
