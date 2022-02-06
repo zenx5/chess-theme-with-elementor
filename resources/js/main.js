@@ -54,15 +54,24 @@ function main(){
                 position: 'start',
                 // onDragStart: this.onDragStart.bind( this ),
                 // onDrop: this.onDrop.bind( this ),
-                onSnapEnd: this.onSnapEnd.bind( this ),
+                // onSnapEnd: this.onSnapEnd.bind( this ),
                 pieceTheme: localStorage.getItem('pieceTheme'),
                 onClick: this.onClick.bind( this ),
-                sparePieces: true
+                sparePieces: true,
+                dropOffBoard: "trash"
             }
-            board = ChessBoard('ChessBoard', config);
+            let ids = JSON.parse( localStorage.getItem('chess-board-ids') );
+            console.log(ids)
+            let boards = []
+            ids.forEach( id => {
+                if( document.querySelector('#'+id) ){
+                    boards.push( ChessBoard(id, config) );
+                }
+            })
+            
         }
 
-        onClick( square, piece ) {
+        onClick( id, square, piece ) {
             let index = this.selectedSquares.filter( element => {
                 return element.square == square;
             })[0];
