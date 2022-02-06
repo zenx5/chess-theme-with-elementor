@@ -33,7 +33,7 @@ class StorageChess {
         xhr.open('post', ajax_object.ajax_url)
         xhr.addEventListener( 'load', function(ev){
             const { response } = ev.target;
-            console.log(response)
+            //console.log( response )
         })
         xhr.send(rData);
         
@@ -42,6 +42,10 @@ class StorageChess {
 
 }
 
-let storageChess = new StorageChess();
+addEventListener( 'load' , ev => {
+    
+    let storageChess = new StorageChess();
 
-storageChess.save('x55', 'e2-e4' );
+    storageChess.save('x55', 'e2-e4' );
+} )
+
