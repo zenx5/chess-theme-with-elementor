@@ -70,13 +70,13 @@ function main(){
             if ( index != null ) {
                 let index = this.selectedSquares.indexOf( square );
                 this.selectedSquares.splice( index, 1 );
-                console.log('.square-' + square, "unclick")
+                console.log(square,piece)
                 $('.square-' + square)
                     .removeClass('highlight2-9c5d2')
             }
             else {
                 this.selectedSquares.push( {square, piece} );
-                console.log('.square-' + square, "click")
+                console.log(square,piece)
                 $('.square-' + square)
                     .addClass('highlight2-9c5d2')
             }
