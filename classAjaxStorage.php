@@ -7,8 +7,12 @@ class AjaxStorage
     {
         switch (strtoupper($_REQUEST['action'])) {
             case 'SAVE':
-                $content = $_POST['content'];
-                self::result(array());
+                $register = array(
+                    "id_board"  => $_POST['id_board'],
+                    "move"      => $_POST['move']
+                );
+
+                self::result($register);
                 break;
             case 'LOAD':
                 $id = $_POST['id'];
